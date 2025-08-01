@@ -256,7 +256,7 @@ Développé entièrement par moi-même avec passion pour créer une solution com
 
 ---
 
-## � Let's Connect
+##  Let's Connect
 <p align="center">
   <a href="https://www.linkedin.com/in/mouhadakhlia/" target="_blank">
     <img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
@@ -272,7 +272,7 @@ Développé entièrement par moi-même avec passion pour créer une solution com
   </a>
 </p>
 
-
+---
 
 <div align="center">
   <h3>🌟 N'oubliez pas de donner une étoile si ce projet vous plaît ! 🌟</h3>
