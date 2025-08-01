@@ -1,0 +1,7 @@
+flask==2.3.2
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.6.1
+joblib==1.4.2
+oracledb
+xgboost

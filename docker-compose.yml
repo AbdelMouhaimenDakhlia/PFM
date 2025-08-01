@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  oracle-xe:
+    image: oracle/database:18.4.0-xe
+    container_name: oracle-xe
+    ports:
+      - "1521:1521"
+      - "8080:8080"
+    environment:
+      - ORACLE_PWD=oracle
+      - ORACLE_CHARACTERSET=AL32UTF8
+    healthcheck:
+      test: ["CMD", "lsnrctl", "status"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+    volumes:
+    - oracle-data:/opt/oracle/oradata
+
+  
+
+  recommandation:
+    build: ./ia/recommandation
+    image: abdelmouhaimen/recommandation:v1
+    ports:
+      - "5000:5000"
+    depends_on:
+      - oracle-xe
+    environment:
+      ORACLE_HOST: oracle-xe
+      ORACLE_PORT: 1521
+      ORACLE_DB: XE
+      ORACLE_USER: system
+      ORACLE_PASS: oracle
+
+  prediction:
+    build: ./ia/Prediction
+    image: abdelmouhaimen/prediction:v1
+    ports:
+      - "5001:5000"
+    depends_on:
+      - oracle-xe
+    environment:
+      ORACLE_HOST: oracle-xe
+      ORACLE_PORT: 1521
+      ORACLE_DB: XE
+      ORACLE_USER: system
+      ORACLE_PASS: oracle
+
+  classification:
+    build: ./ia/Classification
+    image: abdelmouhaimen/classification:v1
+    ports:
+      - "5002:5000"
+    depends_on:
+      - oracle-xe
+    environment:
+      ORACLE_HOST: oracle-xe
+      ORACLE_PORT: 1521
+      ORACLE_DB: XE
+      ORACLE_USER: system
+      ORACLE_PASS: oracle
+  
+  backend:
+    build: ./pfm-backend
+    image: abdelmouhaimen/pfm-backend:v3
+    ports:
+      - "8081:8081"
+    depends_on:
+      - oracle-xe
+      - recommandation
+      - prediction
+      - classification
+    environment:
+      ORACLE_HOST: oracle-xe
+      ORACLE_PORT: 1521
+      ORACLE_DB: XE
+      ORACLE_USER: system
+      ORACLE_PASS: oracle
+    volumes:
+    - ./pfm-backend/resources:/data
+    
+  frontend:
+    build: ./TijariWise
+    image: abdelmouhaimen/mobile:v6
+    ports:
+      - "8082:8082"        # Pour le packager Metro (RCT_METRO_PORT)
+      - "19000:19000"      # Expo Go (app mobile)
+      - "19001:19001"      # Fast refresh websocket
+      - "19002:19002"      # Expo DevTools
+    volumes:
+      - ./TijariWise:/app
+      - expo_cache:/home/expo/.expo
+    environment:
+      - NODE_ENV=development
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+      - REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0
+      - API_BASE_URL=http://10.45.207.15:8081  # ← Remplace par l’IP réelle de ta machine
+      - RCT_METRO_PORT=8082
+    stdin_open: true
+    tty: true
+    
+
+
+volumes:
+  oracle-data:
+  expo_cache:

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  tijariwise-mobile:
+    image: abdelmouhaimen/mobile:v6
+    container_name: tijariwise-expo
+    ports:
+      - "8082:8082"
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - expo_cache:/home/expo/.expo
+    environment:
+      - NODE_ENV=development
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+      - REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0
+      - API_BASE_URL=http://192.168.0.169:8081
+      - RCT_METRO_PORT=8082
+    stdin_open: true
+    tty: true
+
+volumes:
+  expo_cache:

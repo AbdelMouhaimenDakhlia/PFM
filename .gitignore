@@ -1,0 +1,50 @@
+# Fichiers volumineux Oracle
+Oracle/mydb.DMP
+Oracle/mydb_clean.dmp
+Oracle/docker-images/
+
+# Oracle Instant Client (trop volumineux)
+ia/Prediction/oracle/instantclient_19_26/
+**/instantclient*/
+
+# Fichiers de build et dépendances
+**/node_modules/
+**/target/
+**/__pycache__/
+**/.env
+**/.env.local
+
+# Logs
+*.log
+logs/
+
+# Fichiers temporaires
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Fichiers de configuration IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Fichiers de backup
+*.bak
+*.backup
+*.old
+
+# Archives
+*.zip
+*.rar
+*.tar.gz
+*.7z
+
+# Modèles ML volumineux (garder seulement les petits)
+*.h5
+*.pkl
+!*_small.pkl
+!transaction_classifier_*.pkl
+!vectorizer_*.pkl
+!label_encoder.pkl
