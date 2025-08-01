@@ -18,11 +18,11 @@
 
 ### ✨ Fonctionnalités Principales
 
-- 🔐 **Authentification sécurisée** avec biométrie (TouchID, FaceID)
+- 🔐 **Authentification sécurisée** avec biométrie (TouchID)
 - 🏠 **Tableau de bord interactif** avec graphiques en temps réel
 - 💳 **Gestion multi-comptes** avec support multi-devises
 - 💰 **Suivi des transactions** avec catégorisation automatique
-- 📊 **Analyses financières avancées** sur 6 mois
+- 📊 **Analyses financières avancées** sur 1 mois
 - 🔮 **Prédictions IA** pour les dépenses futures
 - 🎨 **Thèmes adaptatifs** (Clair/Sombre/Automatique)
 - ⚡ **Animations fluides** avec React Native Reanimated
@@ -256,16 +256,23 @@ Développé entièrement par moi-même avec passion pour créer une solution com
 
 ---
 
-## 📞 Contact & Support
+## � Let's Connect
+<p align="center">
+  <a href="https://www.linkedin.com/in/mouhadakhlia/" target="_blank">
+    <img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
+  </a>
+  <a href="https://www.instagram.com/mouha9/" target="_blank">
+    <img src="https://img.shields.io/badge/-Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"/>
+  </a>
+  <a href="mailto:Abdelmouhaimen.dakhlia@esprit.tn">
+    <img src="https://img.shields.io/badge/-Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"/>
+  </a>
+  <a href="https://abdelmouhaimendakhlia.github.io/CV/" target="_blank">
+    <img src="https://img.shields.io/badge/-View%20My%20CV-blue?style=for-the-badge&logo=github&logoColor=white"/>
+  </a>
+</p>
 
-Pour toute question, suggestion ou collaboration :
 
-- 📧 **Email**: [abdel.dakhlia@example.com](mailto:abdel.dakhlia@example.com)
-- 💼 **LinkedIn**: [Abdel Mouhaiemen Dakhlia](https://linkedin.com/in/abdel-dakhlia)
-- 🐛 **Issues**: [GitHub Issues](https://github.com/AbdelMouhaimenDakhlia/PFM/issues)
-- 📖 **Documentation**: [Wiki du projet](https://github.com/AbdelMouhaimenDakhlia/PFM/wiki)
-
----
 
 <div align="center">
   <h3>🌟 N'oubliez pas de donner une étoile si ce projet vous plaît ! 🌟</h3>
