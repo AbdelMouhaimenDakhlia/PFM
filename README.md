@@ -39,18 +39,17 @@
 
 <div align="center">
   
-### 📱 Découvrez TijariWise en vidéo !
+### 📱 Découvrez TijariWise en action !
 
-[![Démo TijariWise](https://img.shields.io/badge/▶️_Voir_la_Démo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/AbdelMouhaimenDakhlia/PFM/releases/download/v1.0.0/demo.mp4)
+<!-- Aperçu GIF animé -->
+<img src="https://github.com/AbdelMouhaimenDakhlia/PFM/raw/main/assets/demo.gif" alt="TijariWise Demo" width="400" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
 
-> **🎥 Vidéo de démonstration complète** montrant toutes les fonctionnalités :
-> - Authentification biométrique
-> - Tableau de bord interactif  
-> - Gestion des transactions
-> - Analyses financières
-> - Prédictions IA
-
-*📂 [Télécharger la vidéo](https://github.com/AbdelMouhaimenDakhlia/PFM/releases/download/v1.0.0/demo.mp4) | [Voir toutes les releases](https://github.com/AbdelMouhaimenDakhlia/PFM/releases)*
+**🎥 Fonctionnalités montrées :**
+- 🔐 Authentification biométrique sécurisée
+- 🏠 Tableau de bord interactif avec graphiques
+- 💰 Gestion des transactions en temps réel
+- 📊 Analyses financières avancées
+- 🔮 Prédictions IA intelligentes
 
 </div>
 
