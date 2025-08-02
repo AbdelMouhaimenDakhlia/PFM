@@ -1,71 +1,76 @@
-# 🏦 PFM (Personal Finance Management) - TijariWise
+# 🏦 PFM Backend - TijariWise API
 
 ## 📋 Description du Projet
 
-**TijariWise** est une application complète de gestion financière personnelle qui permet aux utilisateurs de suivre leurs transactions bancaires, analyser leurs dépenses et recevoir des recommandations intelligentes basées sur l'IA.
+**TijariWise Backend** est l'API REST Spring Boot du système de gestion financière personnelle TijariWise. Cette API permet aux utilisateurs de gérer leurs transactions bancaires, comptes et d'intégrer des fonctionnalités d'intelligence artificielle pour la catégorisation automatique des transactions.
 
-### 🎯 Objectifs
-- Centraliser la gestion des finances personnelles
-- Automatiser la catégorisation des transactions
-- Fournir des analyses et recommandations intelligentes
-- Offrir une interface mobile intuitive
+### � Objectifs du Backend
+- Fournir une API REST sécurisée pour la gestion financière
+- Automatiser le traitement des transactions via Spring Batch
+- Intégrer les services d'IA pour la catégorisation
+- Gérer l'authentification et l'autorisation des utilisateurs
 
 ---
 
-## 🏗️ Architecture du Système
-
-### 📦 Structure du Projet
-```
-PFM-TijariWise/
-├── pfm-backend/          # API REST Spring Boot
-├── ia/
-│   ├── Classification/   # API de classification des transactions
-│   ├── Prediction/       # API de prédiction budgétaire
-│   └── Recommandation/   # API de recommandations
-├── TijariWise/          # Application mobile React Native/Expo
-└── docker-compose.yml   # Orchestration des services
-```
-
-### 🔧 Technologies Utilisées
-
-#### Backend (pfm-backend)
+## 🔧 Technologies Utilisées
 - **Framework** : Spring Boot 3.4.2
 - **Base de données** : Oracle Database 18.4.0-XE
 - **Sécurité** : Spring Security + JWT
 - **Traitement par lots** : Spring Batch
 - **ORM** : JPA/Hibernate
 - **Conteneurisation** : Docker
+- **Build Tool** : Maven
 
-#### Intelligence Artificielle
-- **Classification** : Python + CatBoost (Classification des transactions)
-- **Prédiction** : Python + ML (Prédiction budgétaire)
-- **Recommandations** : Python + XGBoost (Recommandations personnalisées)
+---
 
-#### Frontend Mobile
-- **Framework** : React Native + Expo
-- **Plateforme** : iOS/Android
+## 📁 Structure du Projet
 
-#### Infrastructure
-- **Orchestration** : Docker Compose
-- **Base de données** : Oracle XE en conteneur
+```
+pfm-backend/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/pfm/pfmbackend/
+│   │   │       ├── PfmBackendApplication.java
+│   │   │       ├── batch/              # Configuration Spring Batch
+│   │   │       ├── config/             # Configuration Spring
+│   │   │       ├── controller/         # Contrôleurs REST
+│   │   │       ├── dto/               # Objets de transfert de données
+│   │   │       ├── model/             # Entités JPA
+│   │   │       ├── repository/        # Repositories JPA
+│   │   │       ├── security/          # Configuration sécurité
+│   │   │       └── service/           # Services métier
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       └── static/
+│   └── test/                          # Tests unitaires
+├── resources/                         # Ressources externes
+│   └── transactions11.csv           # Fichier CSV de test
+├── Dockerfile                        # Configuration Docker
+├── pom.xml                          # Configuration Maven
+└── README.md
+```
 
 ---
 
 ## ⚡ Fonctionnalités Principales
 
 ### 👤 Gestion des Utilisateurs
+
 - **Inscription/Connexion** sécurisée avec JWT
 - **Authentification** par email/mot de passe
 - **Gestion de profil** utilisateur
 - **Chiffrement** des mots de passe avec BCrypt
 
 ### 🏦 Gestion des Comptes Bancaires
+
 - **Création** de comptes bancaires multiples
 - **Association** utilisateur-comptes
 - **Gestion des IBAN** et devises
 - **Suivi des soldes**
 
 ### 💳 Gestion des Transactions
+
 - **Import automatique** via fichiers CSV
 - **Ajout manuel** de transactions
 - **Catégorisation automatique** par IA
@@ -73,18 +78,21 @@ PFM-TijariWise/
 - **Détection des doublons**
 
 ### 📊 Analyses et Statistiques
+
 - **Répartition par catégories** de dépenses
 - **Évolution mensuelle** des transactions
 - **Dernières transactions** en temps réel
 - **Graphiques** et visualisations
 
 ### 🤖 Intelligence Artificielle
-- **Classification automatique** des transactions
-- **Recommandations personnalisées** basées sur l'historique
+
+- **Classification automatique** des transactions via API externe
+- **Intégration** avec services de recommandations
 - **Prédictions** de dépenses futures
 - **Analyses comportementales**
 
 ### 🔄 Traitement par Lots (Batch)
+
 - **Import automatique** de fichiers CSV
 - **Surveillance en temps réel** des modifications
 - **Traitement asynchrone** des données
@@ -95,25 +103,29 @@ PFM-TijariWise/
 ## 🔐 Sécurité
 
 ### 🛡️ Authentification et Autorisation
+
 - **JWT (JSON Web Token)** pour l'authentification stateless
 - **BCrypt** pour le hachage des mots de passe
 - **Spring Security** pour la sécurisation des endpoints
 - **CORS** configuré pour l'accès cross-origin
 
 ### 🔒 Protection des Données
+
 - **Endpoints protégés** : Tous sauf `/auth/**`
 - **Validation** des données d'entrée
 - **Gestion des sessions** stateless
 - **Chiffrement** des communications
 
 ### 🚫 Endpoints Publics
-```
+
+```http
 POST /auth/login     # Connexion utilisateur
 POST /auth/register  # Inscription utilisateur
 ```
 
 ### 🔐 Endpoints Protégés (JWT requis)
-```
+
+```http
 # Utilisateurs
 GET    /api/utilisateurs/me     # Profil utilisateur
 PUT    /api/utilisateurs/me     # Mise à jour profil
@@ -135,58 +147,69 @@ POST   /api/batch/categorize    # Lancer traitement batch
 
 ---
 
-## 🚀 Installation et Déploiement
+## 🚀 Installation et Démarrage
 
-### ⚡ Démarrage Rapide avec Docker
+### 📋 Prérequis
 
-1. **Cloner le projet**
+- Java 17+
+- Maven 3.8+
+- Docker & Docker Compose
+- Oracle Database 18c+ (ou via Docker)
+
+### ⚡ Démarrage Rapide
+
+#### Option 1: Avec Docker Compose (Recommandé)
+
+1. **Cloner le repository**
+
 ```bash
 git clone <repository-url>
-cd PFM-TijariWise
+cd pfm-backend
 ```
 
-2. **Lancer tous les services**
+2. **Démarrer avec Docker Compose**
+
 ```bash
 docker-compose up -d
 ```
 
-3. **Vérifier le statut**
-```bash
-docker-compose ps
-```
+#### Option 2: Démarrage Local
 
-### 🔧 Services et Ports
-
-| Service | Port | Description |
-|---------|------|-------------|
-| Backend API | 8081 | API REST Spring Boot |
-| Oracle DB | 1521 | Base de données Oracle XE |
-| Oracle Console | 8080 | Interface web Oracle |
-| IA Classification | 5002 | API de classification des transactions |
-| IA Prédiction | 5001 | API de prédiction budgétaire |
-| IA Recommandation | 5000 | API de recommandations |
-| Mobile App | 8082, 19000-19002 | App React Native/Expo |
-
-### 📊 Surveillance et Logs
+1. **Démarrer Oracle Database**
 
 ```bash
-# Logs du backend
-docker logs gitlab-copie-backend-1 --tail 50
-
-# Logs de la base de données
-docker logs oracle-xe --tail 20
-
-# Logs des services IA
-docker logs gitlab-copie-classification-1 --tail 20
-docker logs gitlab-copie-prediction-1 --tail 20
-docker logs gitlab-copie-recommandation-1 --tail 20
+docker run -d --name oracle-xe \
+  -p 1521:1521 -p 5500:5500 \
+  -e ORACLE_PASSWORD=oracle \
+  container-registry.oracle.com/database/express:18.4.0-xe
 ```
+
+2. **Configurer l'application**
+
+```bash
+# Copier le fichier de configuration
+cp src/main/resources/application.properties.example src/main/resources/application.properties
+
+# Modifier les paramètres de base de données si nécessaire
+```
+
+3. **Compiler et démarrer**
+
+```bash
+./mvnw clean compile
+./mvnw spring-boot:run
+```
+
+### 🔧 Configuration
+
+L'API est accessible sur `http://localhost:8081`
 
 ---
 
-## 🔄 Traitement par Lots (Batch Processing)
+## 🔄 Traitement par Lots (Spring Batch)
 
 ### 📁 Format des Fichiers CSV
+
 ```csv
 bhLib,dco,mon,sen,iban,produit
 "Salaire mensuel","2024-01-15",2500.00,"C","IBAN123456","Compte courant"
@@ -194,44 +217,33 @@ bhLib,dco,mon,sen,iban,produit
 ```
 
 ### ⚙️ Configuration du Batch
+
 - **Surveillance automatique** : Toutes les 5 secondes
-- **Localisation** : `/data/transactions11.csv`
+- **Localisation** : `/resources/transactions11.csv`
 - **Traitement** : Classification IA + Insertion DB
 - **Détection doublons** : Automatique
 
 ### 🔍 Surveillance des Fichiers
+
 Le système surveille automatiquement les modifications du fichier CSV et lance le traitement dès qu'un changement est détecté.
 
 ---
 
-## 🧠 Intelligence Artificielle
+## � Intégration Intelligence Artificielle
 
 ### 🏷️ Classification des Transactions
-- **Service** : Classification
-- **Modèle** : CatBoost Classifier
-- **Port** : 5002
-- **Fonction** : Catégorisation automatique des transactions
+
+- **Endpoint externe** : Services de classification IA
+- **Méthode** : POST vers API de classification
 - **Entrée** : Description de la transaction
 - **Sortie** : Catégorie prédite (Alimentation, Transport, Loisirs, etc.)
-- **Endpoint** : `POST http://localhost:5002/class`
+- **Intégration** : Via RestTemplate Spring
 
-### � Prédiction Budgétaire
-- **Service** : Prediction
-- **Modèle** : Machine Learning pour prédictions financières
-- **Port** : 5001
-- **Fonction** : Prédiction des dépenses et budgets futurs
-- **Entrée** : Historique des transactions utilisateur
-- **Sortie** : Prédictions de dépenses et tendances budgétaires
-- **Endpoint** : `POST http://localhost:5001/predict`
+### 📈 Services IA Supportés
 
-### 🎯 Système de Recommandations
-- **Service** : Recommandation
-- **Modèle** : XGBoost Regressor
-- **Port** : 5000
-- **Fonction** : Recommandations personnalisées de produits financiers
-- **Entrée** : Profil utilisateur et historique des transactions
-- **Sortie** : Recommandations de produits financiers personnalisés
-- **Endpoint** : `GET http://localhost:5000/recommendations`
+- **Classification** : Catégorisation automatique des transactions
+- **Prédiction** : Prédictions de dépenses futures  
+- **Recommandations** : Recommandations personnalisées
 
 ---
 
@@ -240,6 +252,7 @@ Le système surveille automatiquement les modifications du fichier CSV et lance 
 ### 📋 Modèle de Données
 
 #### Utilisateur (UTILISATEUR)
+
 ```sql
 - id (PK)
 - nom
@@ -249,6 +262,7 @@ Le système surveille automatiquement les modifications du fichier CSV et lance 
 ```
 
 #### Compte Bancaire (COMPT_BANCAIRE)
+
 ```sql
 - id (PK)
 - iban (UNIQUE)
@@ -259,6 +273,7 @@ Le système surveille automatiquement les modifications du fichier CSV et lance 
 ```
 
 #### Transaction (TRANSACTION)
+
 ```sql
 - id (PK)
 - montant
@@ -271,6 +286,7 @@ Le système surveille automatiquement les modifications du fichier CSV et lance 
 ```
 
 #### Résultats IA (IA_RESULT)
+
 ```sql
 - id (PK)
 - categorie
@@ -280,37 +296,10 @@ Le système surveille automatiquement les modifications du fichier CSV et lance 
 
 ---
 
-## 🔧 Configuration
-
-### ⚙️ Variables d'Environnement
-
-#### Backend
-```properties
-ORACLE_HOST=oracle-xe
-ORACLE_PORT=1521
-ORACLE_DB=XE
-ORACLE_USER=system
-ORACLE_PASS=oracle
-```
-
-#### Base de Données
-```properties
-spring.datasource.url=jdbc:oracle:thin:@//oracle-xe:1521/XEPDB1
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-```
-
-#### Batch Processing
-```properties
-pfm.batch.csv.path=/data/transactions11.csv
-spring.batch.job.enabled=true
-```
-
----
-
 ## 🧪 Tests et Développement
 
 ### 🔍 Tests d'API
+
 ```bash
 # Test de connexion
 curl -X POST http://localhost:8081/auth/login \
@@ -322,11 +311,49 @@ curl -X GET http://localhost:8081/api/transactions/me \
   -H "Authorization: Bearer <JWT_TOKEN>"
 ```
 
-### 📱 Développement Mobile
+### 🧪 Exécution des Tests
+
 ```bash
-cd TijariWise
-npm install
-npm start
+# Tests unitaires
+./mvnw test
+
+# Tests d'intégration
+./mvnw verify
+
+# Rapport de couverture
+./mvnw jacoco:report
+```
+
+---
+
+## � Docker
+
+### 📦 Build de l'Image
+
+```bash
+# Build de l'image Docker
+docker build -t pfm-backend .
+
+# Run du conteneur
+docker run -p 8081:8081 \
+  -e ORACLE_HOST=host.docker.internal \
+  -e ORACLE_PORT=1521 \
+  pfm-backend
+```
+
+### 🔧 Docker Compose
+
+Le projet inclut un `docker-compose.yml` pour démarrer l'ensemble de l'infrastructure :
+
+```bash
+# Démarrer tous les services
+docker-compose up -d
+
+# Voir les logs
+docker-compose logs -f backend
+
+# Arrêter les services
+docker-compose down
 ```
 
 ---
@@ -335,56 +362,66 @@ npm start
 
 ### ❌ Problèmes Courants
 
-#### Batch ne fonctionne pas
-- Vérifier l'existence du fichier CSV : `/data/transactions11.csv`
-- Contrôler les logs : `docker logs gitlab-copie-backend-1`
-- Vérifier les permissions du volume monté
-
 #### Connexion Base de Données
-- S'assurer qu'Oracle est démarré : `docker ps`
-- Vérifier les logs Oracle : `docker logs oracle-xe`
-- Tester la connectivité réseau entre conteneurs
 
-#### Erreurs IA
-- Vérifier le statut des services IA : `docker ps`
-- Contrôler les logs des APIs : `docker logs gitlab-copie-prediction-1`
+- Vérifier qu'Oracle est démarré : `docker ps`
+- Tester la connectivité : `telnet localhost 1521`
+- Vérifier les logs : `docker logs oracle-xe`
+
+#### Batch ne fonctionne pas
+
+- Vérifier l'existence du fichier CSV
+- Contrôler les permissions du répertoire
+- Consulter les logs Spring Batch
+
+#### Erreurs JWT
+
+- Vérifier la configuration `app.jwtSecret`
+- Contrôler l'expiration du token
+- Valider le format du token dans les headers
 
 ---
 
 ## 📈 Évolutions Futures
 
-### 🎯 Roadmap
-- [ ] **Dashboard avancé** avec plus de graphiques
-- [ ] **Alertes** de dépenses personnalisées
-- [ ] **Export PDF** des rapports
-- [ ] **API mobile** native (iOS/Android)
-- [ ] **Synchronisation** bancaire automatique
-- [ ] **Budgets** et objectifs financiers
-- [ ] **Multi-devises** avancé
-- [ ] **Mode offline** pour l'application mobile
+### 🎯 Roadmap Backend
+
+- [ ] **Migration PostgreSQL** pour améliorer les performances
+- [ ] **Cache Redis** pour optimiser les requêtes fréquentes
+- [ ] **Tests automatisés** complets avec TestContainers
+- [ ] **Monitoring** avec Spring Boot Actuator
+- [ ] **Métriques** et observabilité
+- [ ] **API versioning** pour la compatibilité
+- [ ] **Rate limiting** pour protéger l'API
+- [ ] **Swagger/OpenAPI** documentation
 
 ### 🔧 Améliorations Techniques
-- [ ] Migration vers **PostgreSQL** 
-- [ ] **Microservices** avec Spring Cloud
-- [ ] **Cache Redis** pour les performances
-- [ ] **Tests automatisés** complets
-- [ ] **CI/CD Pipeline** avec GitLab
-- [ ] **Monitoring** avec Prometheus/Grafana
+
+- [ ] **Microservices** architecture avec Spring Cloud
+- [ ] **Event-driven** architecture avec Spring Cloud Stream
+- [ ] **CQRS** pattern pour séparer lecture/écriture
+- [ ] **Circuit breaker** pour la résilience
+- [ ] **Distributed tracing** avec Sleuth
 
 ---
 
-## 👥 Équipe et Contribution
+## 👥 Contribution
 
-### 👨‍💻 Développeur Principal
-**Abdel Mouhaiemen Dakhlia** - Développeur Full-Stack
+### 🤝 Comment Contribuer
 
-### 🤝 Contribution
-Les contributions sont les bienvenues ! Merci de :
-1. Fork le projet
-2. Créer une branche feature
-3. Commiter les changements
-4. Pousser vers la branche
-5. Ouvrir une Pull Request
+1. **Fork** le repository
+2. **Créer** une branche feature (`git checkout -b feature/nouvelle-fonctionnalite`)
+3. **Commiter** les changements (`git commit -m 'Ajout nouvelle fonctionnalité'`)
+4. **Pousser** vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
+5. **Ouvrir** une Pull Request
+
+### 📝 Standards de Code
+
+- **Java 17+** avec les features modernes
+- **Spring Boot** best practices
+- **Tests unitaires** obligatoires
+- **Documentation** JavaDoc
+- **Formatting** avec Google Java Style
 
 ---
 
@@ -396,11 +433,12 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 📞 Support
 
-Pour toute question ou support :
-- **Email** : abdel.dakhlia@example.com
+Pour toute question ou support technique :
+
 - **Issues** : Créer une issue GitHub
-- **Documentation** : Consulter ce README
+- **Documentation** : Consulter ce README et les JavaDocs
+- **Wiki** : Documentation détaillée disponible dans le wiki
 
 ---
 
-**💡 TijariWise - Votre partenaire intelligent pour la gestion financière personnelle** 🚀
+**🏦 PFM Backend - TijariWise API - Votre solution backend pour la gestion financière personnelle** 🚀
