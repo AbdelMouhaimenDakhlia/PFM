@@ -122,29 +122,6 @@ pfm-backend/
 POST /auth/login     # Connexion utilisateur
 POST /auth/register  # Inscription utilisateur
 ```
-
-### 🔐 Endpoints Protégés (JWT requis)
-
-```http
-# Utilisateurs
-GET    /api/utilisateurs/me     # Profil utilisateur
-PUT    /api/utilisateurs/me     # Mise à jour profil
-
-# Comptes bancaires
-GET    /api/comptes/me          # Mes comptes
-POST   /api/comptes/{userId}    # Créer un compte
-
-# Transactions
-GET    /api/transactions/me     # Mes transactions
-GET    /api/transactions/stats  # Statistiques
-GET    /api/transactions/monthly # Évolution mensuelle
-POST   /api/transactions/{compteId} # Ajouter transaction
-
-# IA et Batch
-GET    /api/ia-results/{categorie} # Résultats IA
-POST   /api/batch/categorize    # Lancer traitement batch
-```
-
 ---
 
 ## 🚀 Installation et Démarrage
@@ -177,28 +154,10 @@ docker-compose up -d
 
 1. **Démarrer Oracle Database**
 
-```bash
-docker run -d --name oracle-xe \
-  -p 1521:1521 -p 5500:5500 \
-  -e ORACLE_PASSWORD=oracle \
-  container-registry.oracle.com/database/express:18.4.0-xe
-```
-
 2. **Configurer l'application**
-
-```bash
-# Copier le fichier de configuration
-cp src/main/resources/application.properties.example src/main/resources/application.properties
-
-# Modifier les paramètres de base de données si nécessaire
-```
 
 3. **Compiler et démarrer**
 
-```bash
-./mvnw clean compile
-./mvnw spring-boot:run
-```
 
 ### 🔧 Configuration
 
@@ -229,7 +188,7 @@ Le système surveille automatiquement les modifications du fichier CSV et lance 
 
 ---
 
-## � Intégration Intelligence Artificielle
+##  Intégration Intelligence Artificielle
 
 ### 🏷️ Classification des Transactions
 
@@ -247,86 +206,7 @@ Le système surveille automatiquement les modifications du fichier CSV et lance 
 
 ---
 
-## 💾 Base de Données
-
-### 📋 Modèle de Données
-
-#### Utilisateur (UTILISATEUR)
-
-```sql
-- id (PK)
-- nom
-- email (UNIQUE)
-- mot_de_passe (ENCRYPTED)
-- cli (Identifiant client)
-```
-
-#### Compte Bancaire (COMPT_BANCAIRE)
-
-```sql
-- id (PK)
-- iban (UNIQUE)
-- solde
-- devise
-- user_id (FK)
-- date_ouverture
-```
-
-#### Transaction (TRANSACTION)
-
-```sql
-- id (PK)
-- montant
-- description
-- date_trans
-- type (Crédit/Débit)
-- categorie_transaction
-- produit
-- compt_id (FK)
-```
-
-#### Résultats IA (IA_RESULT)
-
-```sql
-- id (PK)
-- categorie
-- confidence_score
-- transaction_id (FK)
-```
-
----
-
-## 🧪 Tests et Développement
-
-### 🔍 Tests d'API
-
-```bash
-# Test de connexion
-curl -X POST http://localhost:8081/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","motDePasse":"password"}'
-
-# Test d'endpoint protégé
-curl -X GET http://localhost:8081/api/transactions/me \
-  -H "Authorization: Bearer <JWT_TOKEN>"
-```
-
-### 🧪 Exécution des Tests
-
-```bash
-# Tests unitaires
-./mvnw test
-
-# Tests d'intégration
-./mvnw verify
-
-# Rapport de couverture
-./mvnw jacoco:report
-```
-
----
-
-## � Docker
+##  Docker
 
 ### 📦 Build de l'Image
 
@@ -340,104 +220,6 @@ docker run -p 8081:8081 \
   -e ORACLE_PORT=1521 \
   pfm-backend
 ```
-
-### 🔧 Docker Compose
-
-Le projet inclut un `docker-compose.yml` pour démarrer l'ensemble de l'infrastructure :
-
-```bash
-# Démarrer tous les services
-docker-compose up -d
-
-# Voir les logs
-docker-compose logs -f backend
-
-# Arrêter les services
-docker-compose down
-```
-
----
-
-## 🚨 Dépannage
-
-### ❌ Problèmes Courants
-
-#### Connexion Base de Données
-
-- Vérifier qu'Oracle est démarré : `docker ps`
-- Tester la connectivité : `telnet localhost 1521`
-- Vérifier les logs : `docker logs oracle-xe`
-
-#### Batch ne fonctionne pas
-
-- Vérifier l'existence du fichier CSV
-- Contrôler les permissions du répertoire
-- Consulter les logs Spring Batch
-
-#### Erreurs JWT
-
-- Vérifier la configuration `app.jwtSecret`
-- Contrôler l'expiration du token
-- Valider le format du token dans les headers
-
----
-
-## 📈 Évolutions Futures
-
-### 🎯 Roadmap Backend
-
-- [ ] **Migration PostgreSQL** pour améliorer les performances
-- [ ] **Cache Redis** pour optimiser les requêtes fréquentes
-- [ ] **Tests automatisés** complets avec TestContainers
-- [ ] **Monitoring** avec Spring Boot Actuator
-- [ ] **Métriques** et observabilité
-- [ ] **API versioning** pour la compatibilité
-- [ ] **Rate limiting** pour protéger l'API
-- [ ] **Swagger/OpenAPI** documentation
-
-### 🔧 Améliorations Techniques
-
-- [ ] **Microservices** architecture avec Spring Cloud
-- [ ] **Event-driven** architecture avec Spring Cloud Stream
-- [ ] **CQRS** pattern pour séparer lecture/écriture
-- [ ] **Circuit breaker** pour la résilience
-- [ ] **Distributed tracing** avec Sleuth
-
----
-
-## 👥 Contribution
-
-### 🤝 Comment Contribuer
-
-1. **Fork** le repository
-2. **Créer** une branche feature (`git checkout -b feature/nouvelle-fonctionnalite`)
-3. **Commiter** les changements (`git commit -m 'Ajout nouvelle fonctionnalité'`)
-4. **Pousser** vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
-5. **Ouvrir** une Pull Request
-
-### 📝 Standards de Code
-
-- **Java 17+** avec les features modernes
-- **Spring Boot** best practices
-- **Tests unitaires** obligatoires
-- **Documentation** JavaDoc
-- **Formatting** avec Google Java Style
-
----
-
-## 📄 Licence
-
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
----
-
-## 📞 Support
-
-Pour toute question ou support technique :
-
-- **Issues** : Créer une issue GitHub
-- **Documentation** : Consulter ce README et les JavaDocs
-- **Wiki** : Documentation détaillée disponible dans le wiki
 
 ---
 
