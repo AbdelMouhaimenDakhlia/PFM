@@ -207,35 +207,4 @@ expo upload:android
 # Apple App Store
 expo upload:ios
 ```
-
-## 🔄 API Integration
-
-### Configuration
-L'application communique avec l'API backend via Axios :
-
-```typescript
-// Configuration automatique des headers
-const api = axios.create({
-  baseURL: process.env.API_BASE_URL,
-  timeout: 10000,
-});
-
-// Intercepteur pour les tokens JWT
-api.interceptors.request.use(async (config) => {
-  const token = await AsyncStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
 ---
-
-<div align="center">
-
-**TijariWise v1.0.0**
-
-*Développé avec ❤️ par l'équipe TijariWise*
-
-[📱 Demo](https://expo.dev/@username/tijariwise) • [📖 Docs](./DOCUMENTATION_COMPLETE.md) • [🐛 Report Bug](https://github.com/username/tijariwise/issues) • [✨ Request Feature](https://github.com/username/tijariwise/issues)
-
-</div>
