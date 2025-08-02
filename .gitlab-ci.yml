@@ -1,0 +1,147 @@
+# ==========================================
+# PIPELINE CI/CD GITLAB - ANALYSE QUALITÉ PFM
+# ==========================================
+
+stages:
+  - code-quality
+  - test
+  - security
+  - deploy
+
+variables:
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+  GIT_DEPTH: "0"
+  MAVEN_OPTS: "-Dmaven.repo.local=${CI_PROJECT_DIR}/.m2/repository"
+
+# Configuration du cache pour optimiser les builds
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .sonar/cache
+    - .m2/repository
+    - TijariWise/node_modules
+    - ia/.pip-cache
+
+# ==========================================
+# ANALYSE SONARQUBE - QUALITÉ DE CODE
+# ==========================================
+sonarqube-check:
+  stage: code-quality
+  image: 
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  cache:
+    key: "sonar-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - .sonar/cache
+  script:
+    - echo "🔍 Démarrage de l'analyse SonarQube..."
+    - sonar-scanner -Dsonar.qualitygate.wait=true
+  artifacts:
+    reports:
+      codequality: sonar-report.json
+    expire_in: 1 week
+  allow_failure: true
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# ==========================================
+# TESTS BACKEND SPRING BOOT
+# ==========================================
+backend-tests:
+  stage: test
+  image: openjdk:17
+  before_script:
+    - cd pfm-backend
+    - chmod +x mvnw
+  script:
+    - ./mvnw clean test
+  artifacts:
+    when: always
+    reports:
+      junit: pfm-backend/target/surefire-reports/TEST-*.xml
+    paths:
+      - pfm-backend/target/surefire-reports/
+    expire_in: 1 week
+  allow_failure: true
+
+# ==========================================
+# TESTS FRONTEND REACT NATIVE
+# ==========================================
+frontend-tests:
+  stage: test
+  image: node:18
+  before_script:
+    - cd TijariWise
+  script:
+    - npm ci
+    - npm run test --if-present || echo "No tests configured"
+  artifacts:
+    when: always
+    paths:
+      - TijariWise/coverage/
+    expire_in: 1 week
+  allow_failure: true
+
+# ==========================================
+# ANALYSE PYTHON (SERVICES IA)
+# ==========================================
+python-quality:
+  stage: code-quality
+  image: python:3.9
+  before_script:
+    - pip install flake8 pylint bandit safety
+  script:
+    - cd ia
+    - echo "=== FLAKE8 Analysis ==="
+    - flake8 . --max-line-length=88 --exclude=__pycache__,*.pkl,*.h5 --exit-zero
+    - echo "=== PYLINT Analysis ==="
+    - find . -name "*.py" -exec pylint {} \; --exit-zero || true
+    - echo "=== BANDIT Security Analysis ==="
+    - bandit -r . -f json -o bandit-report.json --exit-zero || true
+    - echo "=== SAFETY Dependency Check ==="
+    - safety check --json --output safety-report.json --continue-on-error || true
+  artifacts:
+    when: always
+    paths:
+      - ia/bandit-report.json
+      - ia/safety-report.json
+    expire_in: 1 week
+  allow_failure: true
+
+# ==========================================
+# ANALYSE DE SÉCURITÉ GITLAB
+# ==========================================
+security-scan:
+  stage: security
+  image: registry.gitlab.com/gitlab-org/security-products/analyzers/secrets:latest
+  script:
+    - /analyzer run
+  artifacts:
+    reports:
+      secret_detection: gl-secret-detection-report.json
+  allow_failure: true
+
+# ==========================================
+# CODE QUALITY GITLAB
+# ==========================================
+code_quality:
+  stage: code-quality
+  image: docker:stable
+  variables:
+    DOCKER_DRIVER: overlay2
+  allow_failure: true
+  services:
+    - docker:stable-dind
+  script:
+    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+    - docker run
+        --env SOURCE_CODE="$PWD"
+        --volume "$PWD":/code
+        --volume /var/run/docker.sock:/var/run/docker.sock
+        "registry.gitlab.com/gitlab-org/ci-cd/codequality:$SP_VERSION" /code
+  artifacts:
+    reports:
+      codequality: gl-codequality.json
+    expire_in: 1 week

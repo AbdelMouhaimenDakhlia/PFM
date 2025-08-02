@@ -4,7 +4,7 @@
 
 **TijariWise Backend** est l'API REST Spring Boot du système de gestion financière personnelle TijariWise. Cette API permet aux utilisateurs de gérer leurs transactions bancaires, comptes et d'intégrer des fonctionnalités d'intelligence artificielle pour la catégorisation automatique des transactions.
 
-### �Objectifs du Backend
+### Objectifs du Backend
 - Fournir une API REST sécurisée pour la gestion financière
 - Automatiser le traitement des transactions via Spring Batch
 - Intégrer les services d'IA pour la catégorisation
