@@ -35,6 +35,25 @@
 - **Graphiques**: react-native-chart-kit, react-native-svg-charts
 - **Sécurité**: JWT, AsyncStorage, Biométrie native
 
+## 🎬 Démo en Action
+
+<div align="center">
+  
+### 📱 Découvrez TijariWise en vidéo !
+
+[![Démo TijariWise](https://img.shields.io/badge/▶️_Voir_la_Démo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/AbdelMouhaimenDakhlia/PFM/releases/download/v1.0.0/demo.mp4)
+
+> **🎥 Vidéo de démonstration complète** montrant toutes les fonctionnalités :
+> - Authentification biométrique
+> - Tableau de bord interactif  
+> - Gestion des transactions
+> - Analyses financières
+> - Prédictions IA
+
+*📂 [Télécharger la vidéo](https://github.com/AbdelMouhaimenDakhlia/PFM/releases/download/v1.0.0/demo.mp4) | [Voir toutes les releases](https://github.com/AbdelMouhaimenDakhlia/PFM/releases)*
+
+</div>
+
 ---
 
 ## 🚀 Backend Spring Boot
