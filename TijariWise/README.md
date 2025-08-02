@@ -184,27 +184,4 @@ npm run test:integration
 # Coverage
 npm run test:coverage
 ```
-
-## 📱 Déploiement
-
-### Development Build
-```bash
-expo build:android
-expo build:ios
-```
-
-### Production Build
-```bash
-expo build:android --release-channel production
-expo build:ios --release-channel production
-```
-
-### Store Deployment
-```bash
-# Google Play Store
-expo upload:android
-
-# Apple App Store
-expo upload:ios
-```
 ---
