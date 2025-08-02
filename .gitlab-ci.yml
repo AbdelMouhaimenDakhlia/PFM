@@ -6,9 +6,8 @@ stages:
   - code-quality
   - test
   - security
-  - deploy
 
-
+# Variables globales
 variables:
   SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
   GIT_DEPTH: "0"
@@ -43,9 +42,20 @@ sonarqube-check:
       codequality: sonar-report.json
     expire_in: 1 week
   allow_failure: true
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# ==========================================
+# TEST SIMPLE - VÉRIFICATION PIPELINE
+# ==========================================
+test-pipeline:
+  stage: test
+  image: alpine:latest
+  script:
+    - echo "🚀 Pipeline GitLab fonctionne correctement !"
+    - echo "📂 Contenu du répertoire :"
+    - ls -la
+    - echo "🏗️ Structure du projet :"
+    - find . -maxdepth 2 -type d | head -10
+  allow_failure: false
 
 # ==========================================
 # TESTS BACKEND SPRING BOOT
