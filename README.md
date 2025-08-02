@@ -286,9 +286,7 @@ Développé entièrement par moi-même avec passion pour créer une solution com
   <a href="mailto:Abdelmouhaimen.dakhlia@esprit.tn">
     <img src="https://img.shields.io/badge/-Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"/>
   </a>
-  <a href="https://abdelmouhaimendakhlia.github.io/CV/" target="_blank">
-    <img src="https://img.shields.io/badge/-View%20My%20CV-blue?style=for-the-badge&logo=github&logoColor=white"/>
-  </a>
+  
 </p>
 
 ---
