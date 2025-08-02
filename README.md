@@ -43,6 +43,7 @@
 
 <!-- Aperçu GIF animé -->
 <img src="https://github.com/AbdelMouhaimenDakhlia/PFM/raw/main/assets/demo.gif" alt="TijariWise Demo" width="400" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+</div>
 
 **🎥 Fonctionnalités montrées :**
 - 🔐 Authentification biométrique sécurisée
@@ -51,7 +52,7 @@
 - 📊 Analyses financières avancées
 - 🔮 Prédictions IA intelligentes
 
-</div>
+
 
 ---
 
